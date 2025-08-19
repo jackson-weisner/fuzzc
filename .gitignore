@@ -1,0 +1,9 @@
+main
+CMakeCache.txt
+cmake_install.cmake
+libfuzzc.a
+libfuzzc.so
+Makefile
+CMakeFiles
+test
+.idea
