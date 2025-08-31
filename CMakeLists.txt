@@ -20,6 +20,12 @@ add_library(fuzzc_shared SHARED ${SOURCES})
 set_target_properties(fuzzc_static PROPERTIES OUTPUT_NAME "fuzzc")
 set_target_properties(fuzzc_shared PROPERTIES OUTPUT_NAME "fuzzc")
 
-add_executable(test tests/main.c)
+set(TEST_SOURCES
+        tests/main.c
+        tests/test_distance.c
+        tests/test_api.c
+)
 
-target_link_libraries(test PRIVATE fuzzc_static)
+add_executable(tests ${TEST_SOURCES})
+
+target_link_libraries(tests PRIVATE fuzzc_static)
