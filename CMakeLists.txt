@@ -12,6 +12,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 set(SOURCES
         src/api.c
         src/distance.c
+        src/match.c
 )
 
 add_library(fuzzc_static STATIC ${SOURCES})

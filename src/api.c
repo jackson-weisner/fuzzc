@@ -36,6 +36,8 @@ char *fuzzc_top_match(const char *s1, char **s2, const int size, int (*distance_
 
 // Function to find all strings from an array that exceed a similarity threshold based on a distance function.
 matches *fuzzc_matches_in_threshold(const char *s1, char **s2, const int size, const double threshold, int (*distance_func)(const char *, const char *)) {
+    if (size <= 0 || threshold < 0.0 || threshold > 1.0 || s2 == NULL) return NULL;
+
     char **m = malloc(size * sizeof(char *));
     if (m == NULL) return NULL;
 

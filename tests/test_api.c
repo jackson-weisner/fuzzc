@@ -9,6 +9,7 @@
 #include "../include/distance.h"
 #include "../include/api.h"
 #include "tests.h"
+#include "../include/match.h"
 #include "../include/macros.h"
 
 static void test_fuzzc_calculate_similarity() {
@@ -52,7 +53,21 @@ static void test_fuzzc_top_match() {
     assert(strcmp(top, "abc") == 0);
 }
 
+static void test_fuzzc_matches_in_threshold() {
+    char *words[] = {"sitting", "flitting", "biting", "kitchen", "kitten", "kittin"};
+    matches *m = fuzzc_matches_in_threshold("kitten", words, 4, 0.5, fuzzc_levenshtein_distance);
+    assert(m->count == 2);
+    fuzzc_free_matches(m);
+
+    m = fuzzc_matches_in_threshold("", words, 4, 0.3, fuzzc_levenshtein_distance);
+    assert(m == NULL);
+
+    m = fuzzc_matches_in_threshold("test", NULL, 4, 0.3, fuzzc_levenshtein_distance);
+    assert(m == NULL);
+}
+
 void test_fuzzc_api_functions() {
     test_fuzzc_calculate_similarity();
     test_fuzzc_top_match();
+    test_fuzzc_matches_in_threshold();
 }

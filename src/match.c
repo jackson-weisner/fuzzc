@@ -1,6 +1,5 @@
 #include "../include/match.h"
 
-#include <stddef.h>
 #include <stdlib.h>
 
 void fuzzc_free_matches(matches *m) {
