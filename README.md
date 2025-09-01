@@ -64,7 +64,14 @@ Pass a string and an array of choices to `fuzzc_matches_in_threshold` to get all
 
 int main() {
     char *choices[] = {"apple", "banana", "orange"};
-    char *result = fuzzc_matches_in_threshold("teststring", choices, 3, 0.5, fuzzc_levenshtein_distance);
+    matches *result = fuzzc_matches_in_threshold("teststring", choices, 3, 0.5, fuzzc_levenshtein_distance);
+    
+    for (size_t i = 0; i < result->count; i++) {
+        printf("Match: %s\n", result->matches[i]);
+    }
+    
+    fuzzc_free_matches(result);
+    
     return 0;
 }
 ```
