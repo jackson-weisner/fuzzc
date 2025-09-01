@@ -67,7 +67,7 @@ int main() {
     matches *result = fuzzc_matches_in_threshold("teststring", choices, 3, 0.5, fuzzc_levenshtein_distance);
     
     for (size_t i = 0; i < result->count; i++) {
-        printf("Match: %s\n", result->matches[i]);
+        printf("Match: %s, Similarity: %f\n", result->match_array[i].data, result->match_array[i].similarity);
     }
     
     fuzzc_free_matches(result);

@@ -4,7 +4,12 @@
 #include <stddef.h>
 
 typedef struct {
-    char **data;
+    char *data;
+    double similarity;
+} match;
+
+typedef struct {
+    match *match_array;
     size_t count;
 } matches;
 

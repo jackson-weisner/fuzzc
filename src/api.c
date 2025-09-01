@@ -37,27 +37,28 @@ char *fuzzc_top_match(const char *s1, char **s2, const int size, int (*distance_
 matches *fuzzc_matches_in_threshold(const char *s1, char **s2, const int size, const double threshold, int (*distance_func)(const char *, const char *)) {
     if (size <= 0 || threshold < 0.0 || threshold > 1.0 || s2 == NULL) return NULL;
 
-    char **m = malloc(size * sizeof(char *));
+    match *m = malloc(size * sizeof(match *));
     if (m == NULL) return NULL;
 
     int count = 0;
     for (size_t i = 0; i < size; i++) {
         const double similarity = fuzzc_calculate_similarity(s1, s2[i], distance_func);
         if (similarity > threshold) {
-            m[count] = s2[i];
+            m[count].data = s2[i];
+            m[count].similarity = similarity;
             count++;
         }
     }
 
     if (count == 0) goto cleanup;
 
-    char **temp = realloc(m, count * sizeof(char *));
+    match *temp = realloc(m, count * sizeof(match *));
     if (temp == NULL) goto cleanup;
 
     matches *result = malloc(count * sizeof(matches));
     if (result == NULL) goto cleanup;
 
-    result->data = temp;
+    result->match_array = temp;
     result->count = count;
 
     return result;
