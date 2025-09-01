@@ -1,7 +1,3 @@
-//
-// Created by jacks on 8/9/2025.
-//
-
 #ifndef DISTANCE_H
 #define DISTANCE_H
 

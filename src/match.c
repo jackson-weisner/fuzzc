@@ -4,7 +4,7 @@
 
 void fuzzc_free_matches(matches *m) {
     if (m != NULL) {
-        if (m->matches != NULL) free(m->matches);
+        if (m->similarities != NULL) free(m->similarities);
         free(m);
     }
 }

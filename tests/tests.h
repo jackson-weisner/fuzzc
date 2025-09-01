@@ -1,7 +1,3 @@
-//
-// Created by jacks on 8/31/2025.
-//
-
 #ifndef FUZZC_TESTS_H
 #define FUZZC_TESTS_H
 

@@ -1,7 +1,3 @@
-//
-// Created by jacks on 8/9/2025.
-//
-
 #ifndef API_H
 #define API_H
 

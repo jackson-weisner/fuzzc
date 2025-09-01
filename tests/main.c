@@ -1,7 +1,3 @@
-//
-// Created by jacks on 8/18/2025.
-//
-
 #include <stdio.h>
 
 #include "tests.h"

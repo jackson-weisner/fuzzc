@@ -1,6 +1,3 @@
-//
-// Created by jacks on 8/9/2025.
-//
 #include "../include/distance.h"
 #include "../include/macros.h"
 #include <stdio.h>

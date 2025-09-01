@@ -1,6 +1,3 @@
-//
-// Created by jacks on 8/9/2025.
-//
 #include <stdlib.h>
 #include <string.h>
 
@@ -23,7 +20,7 @@ char *fuzzc_top_match(const char *s1, char **s2, const int size, int (*distance_
     double max_similarity = 0;
     char *most_similar = NULL;
 
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         const double similarity = fuzzc_calculate_similarity(s1, s2[i], distance_func);
         if (similarity > max_similarity) {
             max_similarity = similarity;
@@ -42,7 +39,7 @@ matches *fuzzc_matches_in_threshold(const char *s1, char **s2, const int size, c
     if (m == NULL) return NULL;
 
     int count = 0;
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         const double similarity = fuzzc_calculate_similarity(s1, s2[i], distance_func);
         if (similarity > threshold) {
             m[count] = s2[i];
@@ -58,7 +55,7 @@ matches *fuzzc_matches_in_threshold(const char *s1, char **s2, const int size, c
     matches *result = malloc(count * sizeof(matches));
     if (result == NULL) goto cleanup;
 
-    result->matches = temp;
+    result->similarities = temp;
     result->count = count;
 
     return result;
