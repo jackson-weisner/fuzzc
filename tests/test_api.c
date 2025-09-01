@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "../include/distance.h"
@@ -62,8 +63,27 @@ static void test_fuzzc_matches_in_threshold() {
     assert(m == NULL);
 }
 
+static void test_fuzzc_longest_common_subsequence() {
+    char *lcs = fuzzc_longest_common_subsequence("AGGTAB", "GXTXAYB");
+    assert(strcmp(lcs, "GTAB") == 0);
+    free(lcs);
+
+    lcs = fuzzc_longest_common_subsequence("ABCBDAB", "BDCAB");
+    assert(strcmp(lcs, "BDAB") == 0);
+    free(lcs);
+
+    lcs = fuzzc_longest_common_subsequence("AAAA", "AA");
+    assert(strcmp(lcs, "AA") == 0);
+    free(lcs);
+
+    lcs = fuzzc_longest_common_subsequence("ABC", "DEF");
+    assert(strcmp(lcs, "") == 0);
+    free(lcs);
+}
+
 void test_fuzzc_api_functions() {
     test_fuzzc_calculate_similarity();
     test_fuzzc_top_match();
     test_fuzzc_matches_in_threshold();
+    test_fuzzc_longest_common_subsequence();
 }

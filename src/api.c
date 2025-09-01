@@ -4,6 +4,8 @@
 #include "../include/macros.h"
 #include "../include/api.h"
 
+#include <stdio.h>
+
 // Function to calculate similarity based on a distance function
 // Returns a value between 0.0 (completely different) and 1.0 (identical)
 // Returns -1.0 if the distance function is not defined for the input strings
@@ -55,11 +57,51 @@ matches *fuzzc_matches_in_threshold(const char *s1, char **s2, const int size, c
     matches *result = malloc(count * sizeof(matches));
     if (result == NULL) goto cleanup;
 
-    result->similarities = temp;
+    result->data = temp;
     result->count = count;
 
     return result;
 cleanup:
     free(m);
     return NULL;
+}
+
+
+// Function to find the longest common subsequence between two strings.
+char *fuzzc_longest_common_subsequence(const char *s1, const char *s2) {
+    const size_t len1 = strlen(s1);
+    const size_t len2 = strlen(s2);
+
+    int dp[len1+1][len2+1];
+    if (memset(dp, 0, sizeof(dp)) == NULL) return NULL;
+
+    for (size_t i = 1; i <= len1; i++) {
+        for (size_t j = 1; j <= len2; j++) {
+            if (s1[i-1] == s2[j-1]) {
+                dp[i][j] = dp[i-1][j-1] + 1;
+            } else {
+                dp[i][j] = (dp[i-1][j] > dp[i][j-1]) ? dp[i-1][j] : dp[i][j-1];
+            }
+        }
+    }
+
+    int index = dp[len1][len2];
+    char *result = malloc((index + 1) * sizeof(char));
+    if (result == NULL) return NULL;
+    result[index] = '\0';
+
+    size_t i = len1, j = len2;
+    while (i > 0 && j > 0) {
+        if (s1[i-1] == s2[j-1]) {
+            result[--index] = s1[i-1];
+            i--;
+            j--;
+        } else if (dp[i-1][j] > dp[i][j-1]) {
+            i--;
+        } else {
+            j--;
+        }
+    }
+
+    return result;
 }
